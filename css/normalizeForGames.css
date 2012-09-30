@@ -5,3 +5,20 @@ body {
 	font-weight:bold;
 	overflow:hidden;
 }
+
+#divGameContainer {
+	display:none;
+}
+
+#divGameLicense {
+	background-color:white;
+	color:black;
+	font:normal 18px verdana;
+	margin:auto;
+	padding:0.5em 2em;
+	width:90%;
+}
+
+#divGameLicense p.notice {
+	color:#550099;
+}
