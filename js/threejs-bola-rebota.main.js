@@ -46,6 +46,12 @@
 	// Medidas estándar.
 	var metros = 10, grados = Math.PI / 180;
 
+	// Elementos comunes en 3D.
+	var scene, camera, renderer;
+
+	// Elementos de juego 3D.
+	var pista_de_juego;
+
 	// Datos extra.
 
 	var windowHalfX = window.innerWidth / 2;
@@ -55,7 +61,7 @@
 
 	var debug_mode = true;
 
-	// Objeto estados (Distintos estados posibles del juego).
+	// Objeto estado (Distintos estado posibles del juego).
 	/*
 		licencia,
 		menu,
@@ -64,7 +70,7 @@
 		ganador,
 		perdedor
 	*/
-	var estados;
+	var estado;
 
 
 // FUNCIONES.    --------//
@@ -78,16 +84,31 @@
 
 	// ESTADO: LICENCIA.
 
-		if( estados == 'licencia' ) {
+		if( estado == 'licencia' ) {
 			// TODO
-		}// FIN if( estados == 'licencia' ).
+		}// FIN if( estado == 'licencia' ).
 
 
 	// ESTADO: MENÚ.
 
-		else if( estados == 'menu' ) {
+		else if( estado == 'menu' ) {
 			// TODO
-		}// FIN if( estados == 'menu' ).
+		}// FIN if( estado == 'menu' ).
+
+
+	// ESTADO: JUEGO.
+
+		else if( estado == 'juego' ) {
+
+			if( debug_mode ) {
+				// Actualiza las estadísticas de FPS.
+				stats.update();
+			}
+
+			// Actualiza los gráficos del canvas.
+			renderer.render( scene, camera );
+
+		}// FIN if( estado == 'juego' ).
 
 	}// FIN buclePrincipal.
 
@@ -100,9 +121,83 @@
 		console.info("Evento window.onload");
 
 		// Estado inicial.
-		estados = 'licencia';
+		estado = 'licencia';
 
-		// Evento de menú contextual.
+	// CREACIÓN DE ELEMENTOS.
+
+		var container = $('#divGameScreen');
+
+		// Estadística de FPS.
+		stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.top = '0px';
+		container.append( stats.domElement );
+
+
+		// Escena.
+		scene = new THREE.Scene();
+
+
+		// Cámara.
+		camera = new THREE.PerspectiveCamera(
+			60,
+			window.innerWidth / window.innerHeight,
+			1,
+			5000
+		);
+		camera.position.y = 25 * metros;
+		camera.position.z = 40 * metros;
+		camera.rotation.x = -45 * grados;
+
+
+		// Renderizador.
+		if (Detector.webgl)
+			renderer = new THREE.WebGLRenderer();
+		else
+			renderer = new THREE.CanvasRenderer();
+		renderer.setSize(window.innerWidth, window.innerHeight);
+		container.append( renderer.domElement );
+
+
+		// Luz direccional (Sólo con renderizado WebGL).
+		if (Detector.webgl) {
+			var directionalLight = new THREE.DirectionalLight(0xffffff);
+			directionalLight.position.set(1, 1, 1).normalize();
+			scene.add( directionalLight );
+		}
+
+
+		// Pista de juego.
+		pista_de_juego = new THREE.Mesh(
+			new THREE.PlaneGeometry(
+				40 * metros,
+				60 * metros
+			),
+			new THREE.MeshBasicMaterial( {color: 0x535353} )
+		);
+		pista_de_juego.rotation.x = -90 * grados;
+		pista_de_juego.overdraw = true;
+		scene.add( pista_de_juego );
+
+
+		// Evento resize.
+		$(window).resize(function(){
+
+			// Información en consola javascript del navegador.
+			console.info("Evento window.resize");
+
+			windowHalfX = window.innerWidth / 2;
+			windowHalfY = window.innerHeight / 2;
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		});// FIN $(window).resize.
+
+
+		// Evento oncontextmenu.
 		window.oncontextmenu = function() {
 			// Información en consola javascript del navegador.
 			console.info("Evento window.oncontextmenu");
@@ -112,7 +207,7 @@
 		};// FIN window.oncontextmenu.
 
 
-		// Evento de tecla pulsada.
+		// Evento onkeydown.
 		$(window).keydown(function (e) {
 			// Información en consola javascript del navegador.
 			console.info("Evento window.onkeydown (" + e.keyCode + ":" + String.fromCharCode(e.keyCode) + ", " + e.which + ":" + String.fromCharCode(e.which) + ")");
@@ -134,27 +229,63 @@
 			// De código numérico(keycode) a carácter(keychar).
 			keychar = String.fromCharCode(keycode);
 
-			if( estados = 'licencia' ) {
+
+		// ESTADO: LICENCIA.
+
+			if( estado == 'licencia' ) {
 
 				// Información en consola javascript del navegador.
 				console.info("Estado: Menú.");
-
-				estados = 'menu';
 
 				$('#divGameLicense').fadeOut(
 					1000,
 					function() {
 						$('#divGameMenu').fadeIn(
-							1000
+							1000,
+							function() {
+								estado = 'menu';
+							}
 						);
 					}
 				);
 
 			}
 
+
+		// ESTADO: MENU.
+
+			else if( estado == 'menu' ) {
+
+				// Si pulsa alguna tecla...
+				switch (keychar) {
+
+				// Si pulsa la tecla espacio.
+					case ' ':
+
+						// Información en consola javascript del navegador.
+						console.info("Estado: Juego.");
+
+						$('#divGameMenu').fadeOut(
+							1000,
+							function() {
+								$('#divGameScreen').fadeIn(
+									1000,
+									function() {
+										estado = 'juego';
+									}
+								);
+							}
+						);
+
+					break;
+
+				}
+
+			}
+
 			// El evento continúa normalmente.
 			return true;
-		});
+		});// FIN $(window).keydown.
 
 		// Ejecuta el bucle principal.
 		buclePrincipal();

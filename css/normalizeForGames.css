@@ -31,6 +31,7 @@ p.notice {
 	color:black;
 	font:bold 28px verdana;
 	margin:auto;
+	padding:0.5em 1em;
 	text-align:center;
 	width:90%;
 	/* FADE IN, FADE OUT: See threejs-bola-rebota.main.js (jQuery effect) */
@@ -41,7 +42,7 @@ p.notice {
 	width:50%;
 }
 
-#divGameContainer {
+#divGameScreen {
 	display:none;
 	/* FADE IN, FADE OUT: See threejs-bola-rebota.main.js (jQuery effect) */
 }
