@@ -79,8 +79,15 @@
 	// ESTADO: LICENCIA.
 
 		if( estados == 'licencia' ) {
-
+			// TODO
 		}// FIN if( estados == 'licencia' ).
+
+
+	// ESTADO: MENÚ.
+
+		else if( estados == 'menu' ) {
+			// TODO
+		}// FIN if( estados == 'menu' ).
 
 	}// FIN buclePrincipal.
 
@@ -103,6 +110,51 @@
 			// Desactivar menú contextual.
 			return false;
 		};// FIN window.oncontextmenu.
+
+
+		// Evento de tecla pulsada.
+		$(window).keydown(function (e) {
+			// Información en consola javascript del navegador.
+			console.info("Evento window.onkeydown (" + e.keyCode + ":" + String.fromCharCode(e.keyCode) + ", " + e.which + ":" + String.fromCharCode(e.which) + ")");
+			console.info(e);
+
+			// Almacena código numérico del caracter pulsado.
+			var keycode = null;
+
+			// Almacena el caracter pulsado.
+			var keychar = null;
+
+			// IE8 y anteriores.
+			if (window.event)
+				keycode = e.keyCode;
+			// IE9/Firefox/Chrome/Opera/Safari.
+			else if (e.which)
+				keycode = e.which;
+
+			// De código numérico(keycode) a carácter(keychar).
+			keychar = String.fromCharCode(keycode);
+
+			if( estados = 'licencia' ) {
+
+				// Información en consola javascript del navegador.
+				console.info("Estado: Menú.");
+
+				estados = 'menu';
+
+				$('#divGameLicense').fadeOut(
+					1000,
+					function() {
+						$('#divGameMenu').fadeIn(
+							1000
+						);
+					}
+				);
+
+			}
+
+			// El evento continúa normalmente.
+			return true;
+		});
 
 		// Ejecuta el bucle principal.
 		buclePrincipal();
