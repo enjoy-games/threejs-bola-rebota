@@ -61,7 +61,7 @@
 		2 - Derecha inferior.
 		3 - Derecha superior.
 	*/
-	var bola, pala_jugador;
+	var bola, pala_jugador, pala_ia;
 
 
 	// Datos extra.
@@ -243,13 +243,32 @@
 				50,
 				false
 			),
-			new THREE.MeshLambertMaterial( {color: 0x00ff00} )
+			new THREE.MeshLambertMaterial( {color: 0x80ff80} )
 		);
 		pala_jugador.position.y = 0.5 * metros;
 		pala_jugador.position.z = 25 * metros;
 		pala_jugador.rotation.z = 90 * grados;
 		pala_jugador.overdraw = true;
 		scene.add( pala_jugador );
+
+
+		// Pala IA.
+		pala_ia = new THREE.Mesh(
+			new THREE.CylinderGeometry(
+				1 * metros,
+				1 * metros,
+				6 * metros,
+				50,
+				50,
+				false
+			),
+			new THREE.MeshLambertMaterial( {color: 0xcc0000} )
+		);
+		pala_ia.position.y = 0.5 * metros;
+		pala_ia.position.z = -25 * metros;
+		pala_ia.rotation.z = 90 * grados;
+		pala_ia.overdraw = true;
+		scene.add( pala_ia );
 
 
 		// Evento resize.
