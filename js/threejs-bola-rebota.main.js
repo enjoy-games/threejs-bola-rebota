@@ -46,18 +46,23 @@
 	// Medidas estándar.
 	var metros = 10, grados = Math.PI / 180;
 
+
 	// Elementos comunes en 3D.
 	var scene, camera, renderer;
+
 
 	// Elementos de juego 3D.
 	var pista_de_juego;
 	var barras_de_seguridad = new Array();
 	/*
+		BARRAS DE SEGURIDAD.
 		0 - Izquierda inferior.
 		1 - Izquierda superior.
 		2 - Derecha inferior.
 		3 - Derecha superior.
 	*/
+	var bola;
+
 
 	// Datos extra.
 
@@ -68,8 +73,9 @@
 
 	var debug_mode = true;
 
-	// Objeto estado (Distintos estado posibles del juego).
+	var estado;
 	/*
+		ESTADO (Distintos estados posibles del juego).
 		licencia,
 		menu,
 		juego,
@@ -77,7 +83,6 @@
 		ganador,
 		perdedor
 	*/
-	var estado;
 
 
 // FUNCIONES.    --------//
@@ -212,6 +217,20 @@
 		barras_de_seguridad[3].position.x = 20 * metros;
 		barras_de_seguridad[1].position.y =
 		barras_de_seguridad[3].position.y = 4 * metros;
+
+
+		// Bola.
+		bola = new THREE.Mesh(
+			new THREE.SphereGeometry(
+				1 * metros,
+				50,
+				50
+			),
+			new THREE.MeshLambertMaterial( {color: 0x3737ff} )
+		);
+		bola.position.y = 0.5 * metros;
+		bola.overdraw = true;
+		scene.add( bola );
 
 
 		// Evento resize.
