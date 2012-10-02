@@ -51,6 +51,13 @@
 
 	// Elementos de juego 3D.
 	var pista_de_juego;
+	var barras_de_seguridad = new Array();
+	/*
+		0 - Izquierda inferior.
+		1 - Izquierda superior.
+		2 - Derecha inferior.
+		3 - Derecha superior.
+	*/
 
 	// Datos extra.
 
@@ -178,6 +185,33 @@
 		pista_de_juego.rotation.x = -90 * grados;
 		pista_de_juego.overdraw = true;
 		scene.add( pista_de_juego );
+
+
+		// Barras de seguridad.
+		for( var i = 0; i < 4; i++ ) {
+			barras_de_seguridad[i] = new THREE.Mesh(
+				new THREE.CylinderGeometry(
+					0.5 * metros,
+					0.5 * metros,
+					60 * metros,
+					50,
+					50,
+					false
+				),
+				new THREE.MeshLambertMaterial( {color: 0xe7ae93} )
+			);
+			scene.add( barras_de_seguridad[i] );
+			barras_de_seguridad[i].rotation.x = -90 * grados;
+			barras_de_seguridad[i].overdraw = true;
+		}
+		barras_de_seguridad[0].position.x =
+		barras_de_seguridad[1].position.x = -20 * metros;
+		barras_de_seguridad[0].position.y =
+		barras_de_seguridad[2].position.y = 1.5 * metros;
+		barras_de_seguridad[2].position.x =
+		barras_de_seguridad[3].position.x = 20 * metros;
+		barras_de_seguridad[1].position.y =
+		barras_de_seguridad[3].position.y = 4 * metros;
 
 
 		// Evento resize.
