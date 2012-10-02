@@ -61,7 +61,7 @@
 		2 - Derecha inferior.
 		3 - Derecha superior.
 	*/
-	var bola;
+	var bola, pala_jugador;
 
 
 	// Datos extra.
@@ -231,6 +231,25 @@
 		bola.position.y = 0.5 * metros;
 		bola.overdraw = true;
 		scene.add( bola );
+
+
+		// Pala jugador.
+		pala_jugador = new THREE.Mesh(
+			new THREE.CylinderGeometry(
+				1 * metros,
+				1 * metros,
+				6 * metros,
+				50,
+				50,
+				false
+			),
+			new THREE.MeshLambertMaterial( {color: 0x00ff00} )
+		);
+		pala_jugador.position.y = 0.5 * metros;
+		pala_jugador.position.z = 25 * metros;
+		pala_jugador.rotation.z = 90 * grados;
+		pala_jugador.overdraw = true;
+		scene.add( pala_jugador );
 
 
 		// Evento resize.
