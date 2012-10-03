@@ -62,6 +62,7 @@
 		3 - Derecha superior.
 	*/
 	var bola, pala_jugador, pala_ia;
+	var bola_vel_x = 16, bola_vel_z = -8;
 
 
 	// Datos extra.
@@ -111,6 +112,63 @@
 	// ESTADO: JUEGO.
 
 		else if( estado == 'juego' ) {
+
+		// ACTUALIZA EL ESTADO DE LA BOLA.
+
+			// Desplazamiento.
+			bola.position.x += bola_vel_x;
+			bola.position.z += bola_vel_z;
+
+			// Colision con borde derecho.
+			if( bola.position.x > 20 * metros ) {
+
+				// Respeta el límite.
+				bola.position.x = 20 * metros;
+
+				// Rebota.
+				bola_vel_x *= -1; // TODO random.
+
+			}
+
+			// Colision con borde izquierdo.
+			if( bola.position.x < -20 * metros ) {
+
+				// Respeta el límite.
+				bola.position.x = -20 * metros;
+
+				// Rebota.
+				bola_vel_x *= -1; // TODO random.
+
+			}
+
+			// Colision con borde superior.
+			if( bola.position.z < -30 * metros ) {
+
+				// Respeta el límite.
+				bola.position.z = -30 * metros;
+
+				// Rebota.
+				bola_vel_z *= -1;
+
+				// Punto para el jugador.
+				//puntos_jugador ++;
+
+			}
+
+			// Colision con borde inferior.
+			if( bola.position.z > 30 * metros ) {
+
+				// Respeta el límite.
+				bola.position.z = 30 * metros;
+
+				// Rebota.
+				bola_vel_z *= -1;
+
+				// Punto para la IA.
+				//puntos_ia ++;
+
+			}
+
 
 			if( debug_mode ) {
 				// Actualiza las estadísticas de FPS.
