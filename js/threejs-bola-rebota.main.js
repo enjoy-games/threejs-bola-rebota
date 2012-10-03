@@ -63,6 +63,7 @@
 	*/
 	var bola, pala_jugador, pala_ia;
 	var bola_vel_x = 16, bola_vel_z = -8;
+	var puntos_jugador = 0, puntos_ia = 0;
 
 
 	// Datos extra.
@@ -70,7 +71,7 @@
 	var windowHalfX = window.innerWidth / 2;
 	var windowHalfY = window.innerHeight / 2;
 
-	var stats;
+	var stats, contador_jugador, contador_ia;
 
 	var debug_mode = true;
 
@@ -151,7 +152,7 @@
 				bola_vel_z *= -1;
 
 				// Punto para el jugador.
-				//puntos_jugador ++;
+				puntos_jugador ++;
 
 			}
 
@@ -165,7 +166,7 @@
 				bola_vel_z *= -1;
 
 				// Punto para la IA.
-				//puntos_ia ++;
+				puntos_ia ++;
 
 			}
 
@@ -174,6 +175,10 @@
 				// Actualiza las estadísticas de FPS.
 				stats.update();
 			}
+
+			// Actualiza los contadores.
+			contador_jugador.html( puntos_jugador );
+			contador_ia.html( puntos_ia );
 
 			// Actualiza los gráficos del canvas.
 			renderer.render( scene, camera );
@@ -199,9 +204,14 @@
 
 		// Estadística de FPS.
 		stats = new Stats();
-		stats.domElement.style.position = 'absolute';
-		stats.domElement.style.top = '0px';
+		stats.domElement.style.float = 'left';
+		stats.domElement.style.margin = '0px 1em';
 		container.append( stats.domElement );
+
+
+		// Contadores.
+		contador_jugador = $('#divContadorJugador');
+		contador_ia = $('#divContadorIA');
 
 
 		// Escena.

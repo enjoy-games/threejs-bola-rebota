@@ -44,7 +44,39 @@ p.notice {
 
 #divGameScreen {
 	display:none;
+	font:normal 24px verdana;
 	/* FADE IN, FADE OUT: See threejs-bola-rebota.main.js (jQuery effect) */
+}
+
+div.contador_jugador, div.contador_ia {
+	height:61px;
+	padding: 0px 0px 3px 3px;
+	text-align:center;
+	width:4.3em;
+}
+
+div.contador_jugador {
+	background-color:#010;
+	color:#0fa;
+	float:left;
+}
+
+div.contador_ia {
+	background-color:#200;
+	color:#fa0;
+	float:right;
+}
+
+#divContadorJugador {
+	background-color:#020;
+}
+
+#divContadorIA {
+	background-color:#400;
+}
+
+#divGameScreen canvas {
+	margin-top:-64px;
 }
 
 
