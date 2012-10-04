@@ -99,6 +99,10 @@
 	// ESTADO: LICENCIA.
 
 		if( estado == 'licencia' ) {
+
+			// Información en consola javascript del navegador.
+			console.info("Estado: Licencia.");
+
 			// TODO
 		}// FIN if( estado == 'licencia' ).
 
@@ -106,6 +110,9 @@
 	// ESTADO: MENÚ.
 
 		else if( estado == 'menu' ) {
+
+			// Información en consola javascript del navegador.
+			console.info("Estado: Menú.");
 
 			bola.position.x = 0;
 			bola.position.z = 0;
@@ -124,6 +131,9 @@
 	// ESTADO: JUEGO.
 
 		else if( estado == 'juego' ) {
+
+			// Información en consola javascript del navegador.
+			console.info("Estado: Juego.");
 
 		// ACTUALIZA EL ESTADO DE LA BOLA.
 
@@ -424,6 +434,7 @@
 
 		// Evento onkeydown.
 		$(window).keydown(function (e) {
+
 			// Información en consola javascript del navegador.
 			console.info("Evento window.onkeydown (" + e.keyCode + ":" + String.fromCharCode(e.keyCode) + ", " + e.which + ":" + String.fromCharCode(e.which) + ")");
 			console.info(e);
@@ -449,9 +460,6 @@
 
 			if( estado == 'licencia' ) {
 
-				// Información en consola javascript del navegador.
-				console.info("Estado: Menú.");
-
 				$('#divGameLicense').fadeOut(
 					1000,
 					function() {
@@ -476,9 +484,6 @@
 
 				// Si pulsa la tecla espacio.
 					case ' ':
-
-						// Información en consola javascript del navegador.
-						console.info("Estado: Juego.");
 
 						$('#divGameMenu').fadeOut(
 							1000,
@@ -511,9 +516,6 @@
 		// ESTADO: GANADOR Ó PERDEDOR.
 
 			else if( estado == 'ganador' || estado == 'perdedor' ) {
-
-				// Información en consola javascript del navegador.
-				console.info("Estado: Licencia.");
 
 				estado = null;
 
