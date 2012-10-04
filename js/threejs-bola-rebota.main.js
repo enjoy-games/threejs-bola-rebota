@@ -62,8 +62,8 @@
 		3 - Derecha superior.
 	*/
 	var bola, pala_jugador, pala_ia;
-	var bola_vel_x = 16, bola_vel_z = -8;
-	var puntos_jugador = 0, puntos_ia = 0;
+	var bola_vel_x, bola_vel_z;
+	var puntos_jugador, puntos_ia;
 
 
 	// Datos extra.
@@ -106,7 +106,18 @@
 	// ESTADO: MENÚ.
 
 		else if( estado == 'menu' ) {
-			// TODO
+
+			bola.position.x = 0;
+			bola.position.z = 0;
+			bola_vel_x = 16;
+			bola_vel_z = -8;
+
+			pala_jugador.position.x = 0;
+			pala_ia.position.x = 0;
+
+			puntos_jugador = 0;
+			puntos_ia = 0;
+
 		}// FIN if( estado == 'menu' ).
 
 
@@ -120,6 +131,7 @@
 			bola.position.x += bola_vel_x;
 			bola.position.z += bola_vel_z;
 
+
 			// Colision con borde derecho.
 			if( bola.position.x > 20 * metros ) {
 
@@ -131,6 +143,7 @@
 
 			}
 
+
 			// Colision con borde izquierdo.
 			if( bola.position.x < -20 * metros ) {
 
@@ -141,6 +154,7 @@
 				bola_vel_x *= -1; // TODO random.
 
 			}
+
 
 			// Colision con borde superior.
 			if( bola.position.z < -30 * metros ) {
@@ -156,6 +170,7 @@
 
 			}
 
+
 			// Colision con borde inferior.
 			if( bola.position.z > 30 * metros ) {
 
@@ -167,6 +182,28 @@
 
 				// Punto para la IA.
 				puntos_ia ++;
+
+			}
+
+
+			// Si jugador obtiene 3 puntos, jugador gana.
+			if( puntos_jugador >= 3 ) {
+
+				// Información en consola javascript del navegador.
+				console.info("Estado: Ganador.");
+
+				estado = 'ganador';
+
+			}
+
+
+			// Si IA obtiene 3 puntos, jugador pierde.
+			if( puntos_ia >= 3 ) {
+
+				// Información en consola javascript del navegador.
+				console.info("Estado: Perdedor.");
+
+				estado = 'perdedor';
 
 			}
 
@@ -184,6 +221,25 @@
 			renderer.render( scene, camera );
 
 		}// FIN if( estado == 'juego' ).
+
+
+	// ESTADO: GANADOR.
+
+		else if( estado == 'ganador' ) {
+
+			$('#divMensajeGanador').show();
+
+		}// FIN if( estado = 'ganador' ).
+
+
+	// ESTADO: PERDEDOR.
+
+		else if( estado == 'perdedor' ) {
+
+			$('#divMensajePerdedor').show();
+
+		}// FIN if( estado = 'perdedor' ).
+
 
 	}// FIN buclePrincipal.
 
@@ -442,9 +498,55 @@
 
 			}
 
+
+		// ESTADO; JUEGO.
+
+			else if( estado == 'juego' ) {
+
+				// TODO
+
+			}// FIN if( estado == 'juego' ).
+
+
+		// ESTADO: GANADOR Ó PERDEDOR.
+
+			else if( estado == 'ganador' || estado == 'perdedor' ) {
+
+				// Información en consola javascript del navegador.
+				console.info("Estado: Licencia.");
+
+				estado = null;
+
+				$('#divGameScreen').fadeOut(
+					250,
+					function() {
+
+						$('#divMensajeGanador').fadeOut(
+							250,
+							function() {
+
+								$('#divGameLicense').fadeIn(
+									1000,
+									function() {
+
+										estado = 'licencia';
+
+									}// END FUNCTION.
+								);
+
+							}// END FUNCTION.
+						);
+
+					}// END FUNCTION.
+				);
+
+			}// FIN if( estado == 'ganador' || estado == 'perdedor' ).
+
+
 			// El evento continúa normalmente.
 			return true;
 		});// FIN $(window).keydown.
+
 
 		// Ejecuta el bucle principal.
 		buclePrincipal();

@@ -48,35 +48,49 @@ p.notice {
 	/* FADE IN, FADE OUT: See threejs-bola-rebota.main.js (jQuery effect) */
 }
 
-div.contador_jugador, div.contador_ia {
+div.contador_jugador, div.contador_ia, #divMensajeGanador, #divMensajePerdedor {
 	height:61px;
 	padding: 0px 0px 3px 3px;
 	text-align:center;
 	width:4.3em;
 }
 
-div.contador_jugador {
+div.contador_jugador, #divMensajeGanador {
 	background-color:#010;
 	color:#0fa;
 	float:left;
 }
 
-div.contador_ia {
+div.contador_ia, #divMensajePerdedor {
 	background-color:#200;
 	color:#fa0;
 	float:right;
 }
 
-#divContadorJugador {
+#divContadorJugador, #divMensajeGanador p {
 	background-color:#020;
 }
 
-#divContadorIA {
+#divContadorIA, #divMensajePerdedor p {
 	background-color:#400;
 }
 
 #divGameScreen canvas {
 	margin-top:-64px;
+}
+
+#divMensajeGanador, #divMensajePerdedor {
+	display:none;
+	left:50%;
+	margin: -32px 0px 0px -148px;
+	position:absolute;
+	text-align:center;
+	top:50%;
+	width:auto;
+}
+
+#divMensajeGanador p, #divMensajePerdedor p {
+	color:#fff;
 }
 
 
