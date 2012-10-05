@@ -73,7 +73,7 @@
 
 	var stats, contador_jugador, contador_ia;
 
-	var debug_mode = true;
+	var debug_mode = false;
 
 	var estado;
 	/*
@@ -295,8 +295,10 @@
 
 
 			if( debug_mode ) {
+
 				// Actualiza las estadísticas de FPS.
 				stats.update();
+
 			}
 
 			// Actualiza los contadores.
@@ -360,11 +362,15 @@
 
 		var container = $('#divGameScreen');
 
-		// Estadística de FPS.
-		stats = new Stats();
-		stats.domElement.style.float = 'left';
-		stats.domElement.style.margin = '0px 1em';
-		container.append( stats.domElement );
+		if( debug_mode ) {
+
+			// Estadística de FPS.
+			stats = new Stats();
+			stats.domElement.style.float = 'left';
+			stats.domElement.style.margin = '0px 1em';
+			container.append( stats.domElement );
+
+		}
 
 
 		// Contadores.
