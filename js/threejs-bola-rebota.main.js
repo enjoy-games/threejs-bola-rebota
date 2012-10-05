@@ -61,9 +61,9 @@
 		2 - Derecha inferior.
 		3 - Derecha superior.
 	*/
-	var bola, pala_jugador, pala_ia;
-	var bola_vel_x, bola_vel_z;
-	var puntos_jugador, puntos_ia;
+	var bola, bola_vel_x, bola_vel_z;
+	var pala_jugador, pala_jugador_vel_x, puntos_jugador;
+	var pala_ia, pala_ia_vel_x, puntos_ia;
 
 
 	// Datos extra.
@@ -116,8 +116,8 @@
 
 			bola.position.x = 0;
 			bola.position.z = 0;
-			bola_vel_x = 16;
-			bola_vel_z = -8;
+			bola_vel_x = 32;
+			bola_vel_z = -16;
 
 			pala_jugador.position.x = 0;
 			pala_ia.position.x = 0;
@@ -134,6 +134,7 @@
 
 			// Información en consola javascript del navegador.
 			console.info("Estado: Juego.");
+
 
 		// ACTUALIZA EL ESTADO DE LA BOLA.
 
@@ -195,6 +196,25 @@
 
 			}
 
+
+		// ACTUALIZA EL ESTADO DE LA PALA DEL JUGADOR.
+
+			// Limite izquierdo.
+			if( pala_jugador.position.x - 3.5 * metros >= -20 * metros
+				&& pala_jugador.position.x + 3.5 * metros <= 20 * metros )
+				// Se mueve.
+				pala_jugador.position.x += pala_jugador_vel_x;
+
+			// Se asegura de que no sobrepasa el límite izquierdo.
+			if( pala_jugador.position.x - 3.5 * metros < -20 * metros )
+				pala_jugador.position.x = -20 * metros + 3.5 * metros;
+
+			// Se asegura de que no sobrepasa el límite derecho.
+			if( pala_jugador.position.x + 3.5 * metros > 20 * metros)
+				pala_jugador.position.x = 20 * metros - 3.5 * metros;
+
+
+		// ACTUALIZA EL ESTADO.
 
 			// Si jugador obtiene 3 puntos, jugador gana.
 			if( puntos_jugador >= 3 ) {
@@ -530,6 +550,25 @@
 
 					break;
 
+				// Si pulsa caracteres no imprimibles.
+					default:
+
+					// Si pulsa la tecla flecha izquierda.
+						if( keycode == 37 ) {
+
+							pala_jugador_vel_x = -16;
+
+						}
+
+					// Si pulsa la tecla flecha izquierda.
+						if( keycode == 39 ) {
+
+							pala_jugador_vel_x = 16;
+
+						}
+
+					break;
+
 				}
 
 			}// FIN if( estado == 'juego' ).
@@ -594,6 +633,18 @@
 			// El evento continúa normalmente.
 			return true;
 		});// FIN $(window).keydown.
+
+
+		// Evento de tecla levantada.
+		$(window).keyup(function (e) {
+
+			// Información en consola javascript del navegador.
+			console.info("Evento window.onkeyup (" + e.keyCode + ":" + String.fromCharCode(e.keyCode) + ", " + e.which + ":" + String.fromCharCode(e.which) + ")");
+			console.info(e);
+
+			pala_jugador_vel_x = 0;
+
+		});// FIN $(window).keyup.
 
 
 		// Ejecuta el bucle principal.
