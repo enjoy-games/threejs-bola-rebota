@@ -215,7 +215,7 @@
 
 		// ACTUALIZA EL ESTADO DE LA PALA DEL JUGADOR.
 
-			// Limite izquierdo.
+			// Si está dentro de los límites.
 			if( pala_jugador.position.x - 3.5 * metros >= -20 * metros
 				&& pala_jugador.position.x + 3.5 * metros <= 20 * metros )
 				// Se mueve.
@@ -226,8 +226,38 @@
 				pala_jugador.position.x = -20 * metros + 3.5 * metros;
 
 			// Se asegura de que no sobrepasa el límite derecho.
-			if( pala_jugador.position.x + 3.5 * metros > 20 * metros)
+			if( pala_jugador.position.x + 3.5 * metros > 20 * metros )
 				pala_jugador.position.x = 20 * metros - 3.5 * metros;
+
+
+		// ACTUALIZA EL ESTADO DE LA PALA DE LA IA.
+
+			// Si está dentro de los límites.
+			if( pala_ia.position.x - 3.5 * metros >= -20 * metros
+				&& pala_ia.position.x + 3.5 * metros <= 20 * metros ) {
+
+				if( pala_ia.position.x >= bola.position.x )
+					// Acelera izquierda.
+					pala_ia_vel_x = -32;
+
+				if( pala_ia.position.x <= bola.position.x )
+					// Acelera derecha.
+					pala_ia_vel_x = 32;
+
+			}
+			else
+				pala_ia_vel_x = 0;
+
+			// Se mueve.
+			pala_ia.position.x += pala_ia_vel_x;
+
+			// Se asegura de que no sobrepasa el límite izquierdo.
+			if( pala_ia.position.x - 3.5 * metros < -20 * metros )
+				pala_ia.position.x =  -20 * metros + 3.5 * metros;
+
+			// Se asegura de que no sobrepasa el límite derecho.
+			if( pala_ia.position.x + 3.5 * metros > 20 * metros )
+				pala_ia.position.x = 20 * metros - 3.5 * metros;
 
 
 		// ACTUALIZA EL ESTADO.
