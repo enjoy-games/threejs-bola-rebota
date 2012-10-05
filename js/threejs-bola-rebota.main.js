@@ -602,21 +602,30 @@
 
 			else if( estado == 'ganador' || estado == 'perdedor' ) {
 
-				estado = null;
+				// Si pulsa alguna tecla...
+				switch (keychar) {
 
-				$('#divGameScreen').fadeOut(
-					250,
-					function() {
+				// Si pulsa la tecla espacio.
+					case ' ':
 
-						$('#divMensajeGanador').fadeOut(
+						estado = null;
+
+						$('#divGameScreen').fadeOut(
 							250,
 							function() {
 
-								$('#divGameLicense').fadeIn(
-									1000,
+								$('#divMensajeGanador').fadeOut(
+									250,
 									function() {
 
-										estado = 'licencia';
+										$('#divGameLicense').fadeIn(
+											1000,
+											function() {
+
+												estado = 'licencia';
+
+											}// END FUNCTION.
+										);
 
 									}// END FUNCTION.
 								);
@@ -624,8 +633,9 @@
 							}// END FUNCTION.
 						);
 
-					}// END FUNCTION.
-				);
+					break;
+
+				}
 
 			}// FIN if( estado == 'ganador' || estado == 'perdedor' ).
 
