@@ -199,9 +199,6 @@
 			// Si jugador obtiene 3 puntos, jugador gana.
 			if( puntos_jugador >= 3 ) {
 
-				// Información en consola javascript del navegador.
-				console.info("Estado: Ganador.");
-
 				estado = 'ganador';
 
 			}
@@ -209,9 +206,6 @@
 
 			// Si IA obtiene 3 puntos, jugador pierde.
 			if( puntos_ia >= 3 ) {
-
-				// Información en consola javascript del navegador.
-				console.info("Estado: Perdedor.");
 
 				estado = 'perdedor';
 
@@ -233,9 +227,22 @@
 		}// FIN if( estado == 'juego' ).
 
 
+	// ESTADO: PAUSA.
+
+		else if( estado == 'pausa' ) {
+
+			// Información en consola javascript del navegador.
+			console.info("Estado: Pausa.");
+
+		}// FIN if( estado = 'ganador' ).
+
+
 	// ESTADO: GANADOR.
 
 		else if( estado == 'ganador' ) {
+
+			// Información en consola javascript del navegador.
+			console.info("Estado: Ganador.");
 
 			$('#divMensajeGanador').show();
 
@@ -245,6 +252,9 @@
 	// ESTADO: PERDEDOR.
 
 		else if( estado == 'perdedor' ) {
+
+			// Información en consola javascript del navegador.
+			console.info("Estado: Perdedor.");
 
 			$('#divMensajePerdedor').show();
 
@@ -504,13 +514,49 @@
 			}
 
 
-		// ESTADO; JUEGO.
+		// ESTADO: JUEGO.
 
 			else if( estado == 'juego' ) {
 
-				// TODO
+				// Si pulsa alguna tecla...
+				switch (keychar) {
+
+				// Si pulsa la tecla espacio.
+					case ' ':
+
+						estado = 'pausa';
+
+						$('#divMensajePausa').fadeIn('fast');
+
+					break;
+
+				}
 
 			}// FIN if( estado == 'juego' ).
+
+
+		// ESTADO: PAUSA.
+
+			else if( estado == 'pausa' ) {
+
+				// Si pulsa alguna tecla...
+				switch (keychar) {
+
+				// Si pulsa la tecla espacio.
+					case ' ':
+
+						$('#divMensajePausa').fadeOut(
+							'slow',
+							function() {
+								estado = 'juego';
+							}
+						);
+
+					break;
+
+				}
+
+			}// FIN if( estado == 'pausa' ).
 
 
 		// ESTADO: GANADOR Ó PERDEDOR.
