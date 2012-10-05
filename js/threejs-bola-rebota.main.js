@@ -196,6 +196,22 @@
 
 			}
 
+			// Colision con pala jugador.
+			if( bola.position.x + 1 * metros >= pala_jugador.position.x - 3 * metros
+				&& bola.position.x - 1 * metros <= pala_jugador.position.x + 3 * metros
+				&& bola.position.z + 1 * metros > pala_jugador.position.z - 1 * metros ) {
+
+				// Información en consola javascript del navegador.
+				console.info('colisión pala jugador');
+
+				// Respeta el límite.
+				bola.position.z = pala_jugador.position.z - 2 * metros;
+
+				// Rebota.
+				bola_vel_z = -16; // TODO random.
+
+			}
+
 
 		// ACTUALIZA EL ESTADO DE LA PALA DEL JUGADOR.
 
