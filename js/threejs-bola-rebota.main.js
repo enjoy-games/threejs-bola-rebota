@@ -212,6 +212,22 @@
 
 			}
 
+			// Colision con pala IA.
+			if( bola.position.x + 1 * metros >= pala_ia.position.x - 3 * metros
+				&& bola.position.x - 1 * metros <= pala_ia.position.x + 3 * metros
+				&& bola.position.z - 1 * metros < pala_ia.position.z + 1 * metros ) {
+
+				// Información en consola javascript del navegador.
+				console.info('colisión pala ia');
+
+				// Respeta el límite.
+				bola.position.z = pala_ia.position.z + 2 * metros;
+
+				// Rebota.
+				bola_vel_z = 16; // TODO random.
+
+			}
+
 
 		// ACTUALIZA EL ESTADO DE LA PALA DEL JUGADOR.
 
@@ -664,13 +680,19 @@
 									250,
 									function() {
 
-										$('#divGameLicense').fadeIn(
-											1000,
+										$('#divMensajePerdedor').fadeOut(
+											250,
 											function() {
 
-												estado = 'licencia';
+												$('#divGameLicense').fadeIn(
+													1000,
+													function() {
 
-											}// END FUNCTION.
+														estado = 'licencia';
+
+													}// END FUNCTION.
+												);
+											}//END FUNCTION.
 										);
 
 									}// END FUNCTION.
