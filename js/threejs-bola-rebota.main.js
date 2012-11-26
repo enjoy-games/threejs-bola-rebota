@@ -92,9 +92,6 @@
 	// Actualiza los datos necesarios en cada 'fps'.
 	function buclePrincipal() {
 
-		// Crea un hilo de ejecución para el siguiente frame.
-		mainLoop = window.requestAnimationFrame(buclePrincipal);
-
 
 	// ESTADO: LICENCIA.
 
@@ -343,6 +340,13 @@
 			$('#divMensajePerdedor').show();
 
 		}// FIN if( estado = 'perdedor' ).
+
+
+		// Retrasa ejecución para contrarrestar la aceleración de PC mas potentes.
+		setTimeout(function() {
+			// Crea un hilo de ejecución para el siguiente frame.
+			mainLoop = window.requestAnimationFrame(buclePrincipal);
+		}, 53 );
 
 
 	}// FIN buclePrincipal.
